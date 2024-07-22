@@ -59,7 +59,15 @@ class Tutorial {
                         lineWidth: element.lineWidth,
                       ),
                     ),
-                    element.child,
+                    Positioned(
+                      left: size.width - element.right,
+                      top: element.top,
+                      child: Container(
+                        width: size.width,
+                        height: size.height - 230,
+                        child: element.child,
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -13,6 +13,8 @@ class TutorialItem {
   final TutorialSideEnum lineSide;
   final double lineLength;
   final double lineWidth;
+  final double right;
+  final double top;
 
   /// This is the constructor of the class
   TutorialItem({
@@ -25,5 +27,7 @@ class TutorialItem {
     this.lineSide = TutorialSideEnum.empty,
     this.lineLength = 2.0,
     this.lineWidth = 2.0,
+    this.right = 100,
+    this.top = 100,
   });
 }
