@@ -67,6 +67,7 @@ class HolePainter extends CustomPainter {
           ..close(),
         borderPaint,
       );
+      if (lineSide == TutorialSideEnum.noline) return;
       late double start;
       late double end;
       if (lineSide == TutorialSideEnum.bottom) {

@@ -1,1 +1,1 @@
-enum TutorialSideEnum { empty, top, bottom, left, right }
+enum TutorialSideEnum { empty, top, bottom, left, right, noline }
