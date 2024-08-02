@@ -15,6 +15,8 @@ class TutorialItem {
   final double lineWidth;
   final double right;
   final double top;
+  final bool showSkip;
+  final double topSkipBtn;
 
   /// This is the constructor of the class
   TutorialItem({
@@ -29,5 +31,7 @@ class TutorialItem {
     this.lineWidth = 2.0,
     this.right = 100,
     this.top = 100,
+    this.showSkip = false,
+    this.topSkipBtn = 0.0,
   });
 }

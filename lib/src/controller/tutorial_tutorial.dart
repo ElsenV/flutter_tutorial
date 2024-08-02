@@ -68,6 +68,29 @@ class Tutorial {
                         child: element.child,
                       ),
                     ),
+                    if (element.showSkip)
+                      Positioned(
+                        width: size.width,
+                        top: element.topSkipBtn,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              skipAll(context);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              backgroundColor: Color(0xffFF5400),
+                            ),
+                            child: Text(
+                              'Skip All',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),
