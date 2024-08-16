@@ -17,6 +17,9 @@ class TutorialItem {
   final double top;
   final bool showSkip;
   final double topSkipBtn;
+  final VoidCallback? setSkipBtn;
+  final Widget? skipBtnWidget;
+  final double leftSkipBtn;
 
   /// This is the constructor of the class
   TutorialItem({
@@ -33,5 +36,8 @@ class TutorialItem {
     this.top = 100,
     this.showSkip = false,
     this.topSkipBtn = 0.0,
+    this.setSkipBtn,
+    this.skipBtnWidget,
+    this.leftSkipBtn = 0.0,
   });
 }

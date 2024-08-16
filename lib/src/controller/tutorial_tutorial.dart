@@ -1,7 +1,6 @@
 library tutorial;
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:app_tutorial/src/models/tutorial_item.dart';
 import 'package:app_tutorial/src/painter/painter.dart';
@@ -22,83 +21,76 @@ class Tutorial {
     // Create a Completer to indicate when the tutorial is complete
     Completer<void> tutorialCompleter = Completer<void>();
 
-    children.forEach((element) async {
-      final offset = _capturePositionWidget(element.globalKey);
-      final sizeWidget = _getSizeWidget(element.globalKey);
-      entries.add(
-        OverlayEntry(
-          builder: (context) {
-            return GestureDetector(
-              onTap: () {
-                entries[count].remove();
-                count++;
-                if (count < entries.length) {
-                  overlayState.insert(entries[count]);
-                } else {
-                  // If this is the last tutorial step, complete the tutorial
-                  tutorialCompleter.complete();
-                }
-              },
-              child: Scaffold(
-                backgroundColor: Colors.transparent,
-                body: Stack(
-                  children: [
-                    CustomPaint(
-                      size: size,
-                      painter: HolePainter(
-                        shapeFocus: element.shapeFocus,
-                        dx: offset.dx + (sizeWidget.width / 2),
-                        dy: offset.dy + (sizeWidget.height / 2),
-                        width: sizeWidget.width,
-                        height: sizeWidget.height,
-                        color: element.color,
-                        borderRadius: element.borderRadius,
-                        radius: element.radius,
-                        lineSide: element.lineSide,
-                        lineLength: element.lineLength,
-                        lineWidth: element.lineWidth,
-                      ),
-                    ),
-                    Positioned(
-                      left: size.width - element.right,
-                      top: element.top,
-                      child: Container(
-                        width: size.width,
-                        height: size.height - 230,
-                        child: element.child,
-                      ),
-                    ),
-                    if (element.showSkip)
-                      Positioned(
-                        width: size.width,
-                        top: element.topSkipBtn,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.0),
-                          child: ElevatedButton(
-                            onPressed: () {
-                              skipAll(context);
-                            },
-                            style: ElevatedButton.styleFrom(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              backgroundColor: Color(0xffFF5400),
-                            ),
-                            child: Text(
-                              'Skip All',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ),
+    children.forEach(
+      (element) async {
+        final offset = _capturePositionWidget(element.globalKey);
+        final sizeWidget = _getSizeWidget(element.globalKey);
+        entries.add(
+          OverlayEntry(
+            builder: (context) {
+              return GestureDetector(
+                onTap: () {
+                  entries[count].remove();
+                  count++;
+                  if (count < entries.length) {
+                    overlayState.insert(entries[count]);
+                  } else {
+                    // If this is the last tutorial step, complete the tutorial
+                    tutorialCompleter.complete();
+                  }
+                },
+                child: Scaffold(
+                  backgroundColor: Colors.transparent,
+                  body: Stack(
+                    children: [
+                      CustomPaint(
+                        size: size,
+                        painter: HolePainter(
+                          shapeFocus: element.shapeFocus,
+                          dx: offset.dx + (sizeWidget.width / 2),
+                          dy: offset.dy + (sizeWidget.height / 2),
+                          width: sizeWidget.width,
+                          height: sizeWidget.height,
+                          color: element.color,
+                          borderRadius: element.borderRadius,
+                          radius: element.radius,
+                          lineSide: element.lineSide,
+                          lineLength: element.lineLength,
+                          lineWidth: element.lineWidth,
                         ),
                       ),
-                  ],
+                      Positioned(
+                        left: size.width - element.right,
+                        top: element.top,
+                        child: Container(
+                          width: size.width,
+                          height: size.height - 230,
+                          child: element.child,
+                        ),
+                      ),
+                      if (element.showSkip)
+                        Positioned(
+                          width: 103,
+                          top: element.topSkipBtn,
+                          left: element.leftSkipBtn,
+                          child: GestureDetector(
+                            onTap: () {
+                              skipAll(context, setSkip: element.setSkipBtn);
+                            },
+                            child: element.skipBtnWidget != null
+                                ? element.skipBtnWidget
+                                : Text('Skip'),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-      );
-    });
+              );
+            },
+          ),
+        );
+      },
+    );
 
     overlayState.insert(entries[0]);
 
@@ -113,9 +105,10 @@ class Tutorial {
     entries.clear();
   }
 
-  static skipAll(BuildContext context) {
+  static skipAll(BuildContext context, {VoidCallback? setSkip}) {
     entries[count].remove();
     count++;
+    if (setSkip != null) setSkip();
   }
 
   /// This method returns the position of the widget
