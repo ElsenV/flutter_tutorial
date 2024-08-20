@@ -26,7 +26,7 @@ class TutorialItem {
     required this.globalKey,
     required this.child,
     this.radius,
-    this.color = const Color.fromRGBO(0, 0, 0, 0.6),
+    this.color = const Color.fromRGBO(0, 0, 0, 0.9),
     this.borderRadius = const Radius.circular(10.0),
     this.shapeFocus = ShapeFocus.roundedSquare,
     this.lineSide = TutorialSideEnum.empty,
